@@ -1,21 +1,25 @@
 import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../../components/form-input/form-input.component";
 import "./home.styles.css";
 
 interface FormFields {
   meterID: string;
   measurement: string;
-  limit: number;
+  start: string;
+  stop: string;
 }
 
 const defaultFormFields = {
   meterID: "53d63d3d-1b29-49a6-8e5f-537c730f4d11",
   measurement: "energy",
-  limit: 1,
+  start: "2022-04-01",
+  stop: "2022-05-01"
 };
 
 const Home = () => {
   const [formFields, setFormFields] = useState<FormFields>(defaultFormFields);
+  const navigate = useNavigate()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,14 +49,7 @@ const Home = () => {
         {/* <input type="text" /> */}
         {/* <label>Stop Date</label> */}
         {/* <input type="text" /> */}
-        <FormInput
-          label="Limit"
-          type="number"
-          name="limit"
-          value={formFields.limit}
-          onChange={handleChange}
-        />
-        <button>View</button>
+        <button onClick={()=> navigate("/line-chart", {state: formFields})}>View</button>
       </form>
     </div>
   );
