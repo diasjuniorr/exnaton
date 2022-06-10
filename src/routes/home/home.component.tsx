@@ -1,17 +1,17 @@
+import { ChangeEvent, useState } from "react";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
-import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 import "./home.styles.css";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 interface FormFields {
   meterID: string;
   measurement: string;
-  start: Date | null;
-  stop: Date | null;
+  start: Date;
+  stop: Date;
 }
 
 const defaultFormFields = {
@@ -36,17 +36,27 @@ const Home = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch(
-        "http://localhost:3000/api/v1/meterdata/measurement"
-      );
-      const data = await response.json();
+    const today = new Date();
+    if (
+      formFields.start > today ||
+      formFields.stop > today ||
+      formFields.start > formFields.stop
+    ) {
+      alert("Invalid date range");
+      return;
+    }
 
-      sessionStorage.setItem("data", JSON.stringify(data));
-      navigate("/line-chart");
-  }
+    const { meterID, measurement, start, stop } = formFields;
+    const response = await fetch(
+      `http://localhost:3000/api/v1/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${start.toISOString()}&stop=${stop.toISOString()}`
+    );
+    const data = await response.json();
+
+    sessionStorage.setItem("data", JSON.stringify(data));
+    navigate("/line-chart");
+  };
 
   return (
-    // <div className="authentication-container">
     <Container maxWidth="sm">
       <Paper>
         <div style={{ padding: "40px" }}>
@@ -99,12 +109,11 @@ const Home = () => {
               />
             </LocalizationProvider>
           </Box>
-
           <Box marginTop={2}>
             <Button
               variant="contained"
               fullWidth
-              onClick={()=> handleSubmit()}
+              onClick={() => handleSubmit()}
             >
               View
             </Button>
@@ -112,8 +121,6 @@ const Home = () => {
         </div>
       </Paper>
     </Container>
-
-    // </div>
   );
 };
 
