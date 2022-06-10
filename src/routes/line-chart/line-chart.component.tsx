@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CartesianGrid,
   Legend,
@@ -18,22 +18,19 @@ interface GroupedByDay {
 const LineChartRoute = () => {
   const [data, setData] = useState<SmartMeterData[]>([]);
   const [currentDay, setCurrentDay] = useState<string>("");
-  const navigate = useNavigate()
-  
-  const location = useLocation()
-  console.log("location", location.state)
+  const navigate = useNavigate();
 
   const filterByDay = (day: string, data: SmartMeterData[]) => {
     return data.find((item: GroupedByDay) => item.date === day)?.measurements;
   };
 
   useEffect(() => {
-    const data = sessionStorage.getItem("data")
+    const data = sessionStorage.getItem("data");
     if (!data) {
-      navigate("/")
+      navigate("/");
     }
 
-    setData(JSON.parse(data as string))
+    setData(JSON.parse(data as string));
   }, []);
 
   useEffect(() => {
