@@ -35,6 +35,16 @@ const Home = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
+  const handleSubmit = async () => {
+    const response = await fetch(
+        "http://localhost:3000/api/v1/meterdata/measurement"
+      );
+      const data = await response.json();
+
+      sessionStorage.setItem("data", JSON.stringify(data));
+      navigate("/line-chart");
+  }
+
   return (
     // <div className="authentication-container">
     <Container maxWidth="sm">
@@ -69,6 +79,7 @@ const Home = () => {
               <DatePicker
                 label="Start Date"
                 value={formFields.start}
+                maxDate={new Date()}
                 onChange={(newValue) => {
                   handleDateChange({ name: "start", value: newValue as Date });
                 }}
@@ -80,6 +91,7 @@ const Home = () => {
                 label="Stop Date"
                 value={formFields.stop}
                 minDate={formFields.start}
+                maxDate={new Date()}
                 onChange={(newValue) => {
                   handleDateChange({ name: "stop", value: newValue as Date });
                 }}
@@ -92,7 +104,7 @@ const Home = () => {
             <Button
               variant="contained"
               fullWidth
-              onClick={() => navigate("/line-chart", { state: formFields })}
+              onClick={()=> handleSubmit()}
             >
               View
             </Button>
