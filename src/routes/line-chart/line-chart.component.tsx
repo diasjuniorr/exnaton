@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CartesianGrid,
   Legend,
@@ -18,6 +18,7 @@ interface GroupedByDay {
 const LineChartRoute = () => {
   const [data, setData] = useState<SmartMeterData[]>([]);
   const [currentDay, setCurrentDay] = useState<string>("");
+  const navigate = useNavigate()
   
   const location = useLocation()
   console.log("location", location.state)
@@ -27,16 +28,12 @@ const LineChartRoute = () => {
   };
 
   useEffect(() => {
-    const fetchMeasurementsByDay = async () => {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/meterdata/measurement"
-      );
-      const teste = await response.json();
-      setData(teste);
-      console.log("fetched data", teste);
-    };
+    const data = sessionStorage.getItem("data")
+    if (!data) {
+      navigate("/")
+    }
 
-    fetchMeasurementsByDay();
+    setData(JSON.parse(data as string))
   }, []);
 
   useEffect(() => {
