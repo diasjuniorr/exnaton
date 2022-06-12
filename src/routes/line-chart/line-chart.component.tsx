@@ -12,6 +12,21 @@ import {
   YAxis,
 } from "recharts";
 
+interface Measurement {
+  "0100011D00FF": number;
+  "0100021D00FF": number;
+  timestamp: string;
+}
+
+interface SmartMeterData {
+  date: string;
+  aETotalImport: string;
+  aETotalExport: string;
+  muid: string;
+  measurement: string;
+  measurements: Measurement[];
+}
+
 interface GroupedByDay {
   date: string;
   measurements: Measurement[];
@@ -52,7 +67,13 @@ const LineChartRoute = () => {
             <Typography variant="subtitle2" component="p" ml={1}>
               Per day from {data[0].date} to {data[data.length - 1].date}
             </Typography>
-            <Typography variant="subtitle1" component="p" fontSize={14} ml={1} mb={5}>
+            <Typography
+              variant="subtitle1"
+              component="p"
+              fontSize={14}
+              ml={1}
+              mb={5}
+            >
               (Click on a date to see it's consumption during the day)
             </Typography>
             <LineChart
@@ -128,18 +149,3 @@ const LineChartRoute = () => {
 };
 
 export default LineChartRoute;
-
-interface Measurement {
-  "0100011D00FF": number;
-  "0100021D00FF": number;
-  timestamp: string;
-}
-
-interface SmartMeterData {
-  date: string;
-  aETotalImport: string;
-  aETotalExport: string;
-  muid: string;
-  measurement: string;
-  measurements: Measurement[];
-}
