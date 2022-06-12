@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
@@ -53,8 +53,24 @@ const Home = () => {
     const data = await response.json();
 
     sessionStorage.setItem("data", JSON.stringify(data));
+    sessionStorage.setItem("formFields", JSON.stringify(formFields));
     navigate("/line-chart");
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("formFields")) {
+      const { meterID, measurement, start, stop } = JSON.parse(
+        sessionStorage.getItem("formFields") as string
+      );
+      
+      setFormFields({
+        meterID,
+        measurement,
+        start: new Date(start),
+        stop: new Date(stop),
+      }); 
+    }
+  }, []);
 
   return (
     <Container maxWidth="sm">
