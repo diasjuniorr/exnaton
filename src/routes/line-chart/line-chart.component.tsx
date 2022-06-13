@@ -57,10 +57,10 @@ const LineChartRoute = () => {
   }, [data]);
 
   return (
-    <div>
+    <Box mt={1}>
       {data.length > 0 && currentDay ? (
         <Paper>
-          <Box padding={2}>
+          <Box padding={3}>
             <Typography variant="h4" component="h1">
               Energy consumption{" "}
             </Typography>
@@ -80,7 +80,7 @@ const LineChartRoute = () => {
               width={1300}
               height={400}
               data={data}
-              margin={{ top: 5, right: 40, left: 0, bottom: 5 }}
+              margin={{ top: 5, right: 40, left: 40, bottom: 5 }}
               onClick={(e) => {
                 setCurrentDay(e.activeLabel as string);
               }}
@@ -118,7 +118,7 @@ const LineChartRoute = () => {
               width={1300}
               height={400}
               data={filterByDay(currentDay, data)}
-              margin={{ top: 5, right: 40, left: 0, bottom: 5 }}
+              margin={{ top: 5, right: 40, left: 40, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="time" />
@@ -144,7 +144,7 @@ const LineChartRoute = () => {
       ) : (
         <div>Fetching data...</div>
       )}
-    </div>
+    </Box>
   );
 };
 
