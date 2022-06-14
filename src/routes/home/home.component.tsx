@@ -6,6 +6,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 import "./home.styles.css";
+import api from "../../services/api";
 
 interface FormFields {
   meterID: string;
@@ -47,14 +48,17 @@ const Home = () => {
     }
 
     const { meterID, measurement, start, stop } = formFields;
-    const response = await fetch(
-      `http://localhost:3000/api/v1/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${start.toISOString()}&stop=${stop.toISOString()}`
-    );
-    const data = await response.json();
+    try {
+      const data = await api(
+        `/api/v1/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${start.toISOString()}&stop=${stop.toISOString()}`
+      );
 
-    sessionStorage.setItem("data", JSON.stringify(data));
-    sessionStorage.setItem("formFields", JSON.stringify(formFields));
-    navigate("/line-chart");
+      sessionStorage.setItem("data", JSON.stringify(data));
+      sessionStorage.setItem("formFields", JSON.stringify(formFields));
+      navigate("/line-chart");
+    } catch (e) {
+      alert("Error");
+    }
   };
 
   useEffect(() => {
@@ -73,7 +77,13 @@ const Home = () => {
   }, []);
 
   return (
-    <Box display="flex" alignItems="center" justifyContent="center" width="100%" minHeight="80vh">
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      width="100%"
+      minHeight="80vh"
+    >
       <Container maxWidth="sm">
         <Paper>
           <div style={{ padding: "40px" }}>
