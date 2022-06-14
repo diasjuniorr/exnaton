@@ -4,6 +4,8 @@ import { Container } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./home.styles.css";
 import api from "../../services/api";
@@ -49,15 +51,22 @@ const Home = () => {
 
     const { meterID, measurement, start, stop } = formFields;
     try {
-      const data = await api(
+      const response = await api<Data[]>(
         `/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${start.toISOString()}&stop=${stop.toISOString()}`
       );
 
-      sessionStorage.setItem("data", JSON.stringify(data));
+      console.log(typeof response);
+      sessionStorage.setItem("data", JSON.stringify(response));
       sessionStorage.setItem("formFields", JSON.stringify(formFields));
+
+      if (response.length === 0) {
+        toast.warning("No data for the selected date range");
+        return;
+      }
+
       navigate("/line-chart");
     } catch (e) {
-      alert("Error");
+      console.log("error", e);
     }
   };
 
@@ -151,8 +160,23 @@ const Home = () => {
           </div>
         </Paper>
       </Container>
+      <ToastContainer />
     </Box>
   );
 };
+
+interface Data {
+  date: string;
+  measurement: string;
+  aETotalImport: number;
+  aETotalExport: number;
+  measurements: Measurement[];
+}
+
+interface Measurement {
+  "0100011D00F": number;
+  "0100021D01F": number;
+  time: string;
+}
 
 export default Home;
