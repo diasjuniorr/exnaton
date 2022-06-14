@@ -48,7 +48,12 @@ const LineChartRoute = () => {
       navigate("/");
     }
 
-    setData(JSON.parse(data as string));
+    const parsedData = JSON.parse(data as string);
+    if (parsedData.length === 0) {
+      navigate("/");
+    }
+
+    setData(parsedData);
   }, []);
 
   useEffect(() => {
@@ -59,7 +64,7 @@ const LineChartRoute = () => {
 
   return (
     <Box mt={1}>
-      {data.length > 0 && currentDay ? (
+      {data.length > 0 && currentDay && (
         <Paper>
           <Box padding={3}>
             <Typography variant="h4" component="h1">
@@ -82,7 +87,7 @@ const LineChartRoute = () => {
                 width={1300}
                 height={300}
                 data={data}
-                margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
+                margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
                 onClick={(e) => {
                   setCurrentDay(e.activeLabel as string);
                 }}
@@ -126,7 +131,7 @@ const LineChartRoute = () => {
                 width={1300}
                 height={300}
                 data={filterByDay(currentDay, data)}
-                margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
+                margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" />
@@ -150,8 +155,6 @@ const LineChartRoute = () => {
             </ResponsiveContainer>
           </Box>
         </Paper>
-      ) : (
-        <div>Fetching data...</div>
       )}
     </Box>
   );
