@@ -50,7 +50,7 @@ const Home = () => {
     const { meterID, measurement, start, stop } = formFields;
     try {
       const data = await api(
-        `/api/v1/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${start.toISOString()}&stop=${stop.toISOString()}`
+        `/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${start.toISOString()}&stop=${stop.toISOString()}`
       );
 
       sessionStorage.setItem("data", JSON.stringify(data));

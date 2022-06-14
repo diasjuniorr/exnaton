@@ -13,7 +13,7 @@ interface Measurement {
 }
 
 function api<ApiResponse>(endpoint: string): Promise<ApiResponse> {
-  return fetch(`https://exnaton-backend.herokuapp.com${endpoint}`).then(
+  return fetch(`https://exnaton-backend.herokuapp.com/api/v1${endpoint}`).then(
     (response) => {
       if (!response.ok) {
         throw new Error(response.statusText);
