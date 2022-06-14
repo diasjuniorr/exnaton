@@ -7,6 +7,7 @@ import {
   Legend,
   Line,
   LineChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -76,69 +77,77 @@ const LineChartRoute = () => {
             >
               (Click on a date to see it's consumption during the day)
             </Typography>
-            <LineChart
-              width={1300}
-              height={400}
-              data={data}
-              margin={{ top: 5, right: 40, left: 40, bottom: 5 }}
-              onClick={(e) => {
-                setCurrentDay(e.activeLabel as string);
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="date"
-                cursor={"pointer"}
-                minTickGap={0}
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart
+                width={1300}
+                height={300}
+                data={data}
+                margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
                 onClick={(e) => {
-                  setCurrentDay((e as unknown as Record<string, string>).value);
+                  setCurrentDay(e.activeLabel as string);
                 }}
-              />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="aETotalImport"
-                name="Total Energy Import"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="aETotalExport"
-                name="Total Energy Export"
-                stroke="#82ca9d"
-              />
-            </LineChart>
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="date"
+                  cursor={"pointer"}
+                  minTickGap={0}
+                  onClick={(e) => {
+                    setCurrentDay(
+                      (e as unknown as Record<string, string>).value
+                    );
+                  }}
+                />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="aETotalImport"
+                  name="Total Energy Import"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="aETotalExport"
+                  name="Total Energy Export"
+                  stroke="#82ca9d"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+
             <Typography variant="subtitle2" ml={1} mb={5} mt={5}>
               Per hour on {currentDay}
             </Typography>
-            <LineChart
-              width={1300}
-              height={400}
-              data={filterByDay(currentDay, data)}
-              margin={{ top: 5, right: 40, left: 40, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="time" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                name="Total Energy Import"
-                dataKey="0100011D00FF"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line
-                type="monotone"
-                name="Total Energy Export"
-                dataKey="0100021D00FF"
-                stroke="#82ca9d"
-              />
-            </LineChart>
+
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart
+                width={1300}
+                height={300}
+                data={filterByDay(currentDay, data)}
+                margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  name="Total Energy Import"
+                  dataKey="0100011D00FF"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
+                <Line
+                  type="monotone"
+                  name="Total Energy Export"
+                  dataKey="0100021D00FF"
+                  stroke="#82ca9d"
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </Box>
         </Paper>
       ) : (
