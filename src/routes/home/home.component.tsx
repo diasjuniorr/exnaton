@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./home.styles.css";
 import api from "../../services/api";
+import { formatDate } from "../../utils/date.utils";
 
 interface FormFields {
   meterID: string;
@@ -52,7 +53,9 @@ const Home = () => {
     const { meterID, measurement, start, stop } = formFields;
     try {
       const response = await api<Data[]>(
-        `/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${start.toISOString()}&stop=${stop.toISOString()}`
+        `/meterdata/measurement?muid=${meterID}&measurement=${measurement}&start=${formatDate(
+          start
+        )}&stop=${formatDate(stop)}`
       );
 
       console.log(typeof response);
@@ -66,7 +69,8 @@ const Home = () => {
 
       navigate("/line-chart");
     } catch (e) {
-      console.log("error", e);
+      console.log(e);
+      toast.error("Oops... something went wrong");
     }
   };
 
