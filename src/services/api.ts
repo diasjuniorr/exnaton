@@ -1,8 +1,9 @@
+const URL = process.env.API_URL
+  ? process.env.API_URL
+  : "https://exnaton-backend.herokuapp.com/api/v1";
 export async function api<T>(endpoint: RequestInfo): Promise<T> {
   try {
-    const response = await fetch(
-      `https://exnaton-backend.herokuapp.com/api/v1${endpoint}`
-    );
+    const response = await fetch(`${URL}${endpoint}`);
     if (!response.ok) {
       throw new Error(response.statusText);
     }
