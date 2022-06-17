@@ -62,7 +62,6 @@ const LineChartRoute = () => {
 
       averageExported += m.aETotalExport;
       averageImported += m.aETotalImport;
-      console.log("counting", averageExported, averageImported);
     });
 
     return {
