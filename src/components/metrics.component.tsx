@@ -24,18 +24,18 @@ const Metrics: React.FC<MetricsProps> = ({ metrics }) => {
     >
       <TextField
         id="outlined-basic"
-        label="Days Exported"
+        label="Exported > Imported"
         name="meterID"
-        value={daysExported}
+        value={`${daysExported} day(s)`}
         variant="standard"
         disabled
         margin="dense"
       />
       <TextField
         id="outlined-basic"
-        label="Days Imported"
+        label="Imported > Exported"
         name="meterID"
-        value={daysImported}
+        value={`${daysImported} day(s)`}
         variant="standard"
         disabled
         margin="dense"
