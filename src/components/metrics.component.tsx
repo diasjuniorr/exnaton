@@ -17,8 +17,10 @@ const Metrics: React.FC<MetricsProps> = ({ metrics }) => {
     <Box
       display="flex"
       justifyContent="space-between"
-      paddingTop={3}
-      paddingBottom={3}
+      paddingLeft={1}
+      paddingRight={1}
+      paddingTop={2}
+      paddingBottom={2}
     >
       <TextField
         id="outlined-basic"

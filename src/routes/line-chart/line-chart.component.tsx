@@ -106,6 +106,9 @@ const LineChartRoute = () => {
             <Typography variant="h4" component="h1">
               Energy consumption{" "}
             </Typography>
+            <Typography variant="subtitle2" component="p" ml={1}>
+              Metrics from {data[0].date} to {data[data.length - 1].date}
+            </Typography>
             <Metrics metrics={metrics} />
             <Typography variant="h5" component="h1">
               Time series
