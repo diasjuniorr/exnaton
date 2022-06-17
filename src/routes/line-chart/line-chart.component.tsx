@@ -12,7 +12,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import Metrics from "../../components/metrics.component";
+import Metrics from "../../components/metrics/metrics.component";
+import Subtitle from "../../components/metrics/subtitle/subtitle.component";
 
 interface Measurement {
   "0100011D00FF": number;
@@ -105,16 +106,22 @@ const LineChartRoute = () => {
             <Typography variant="h4" component="h1">
               Energy consumption{" "}
             </Typography>
-            <Typography variant="subtitle2" component="p" ml={1}>
-              Metrics from {data[0].date} to {data[data.length - 1].date}
-            </Typography>
+            <Subtitle
+              text="Metrics from"
+              start={data[0].date}
+              stop={data[data.length - 1].date}
+              duration={data.length}
+            />
             <Metrics metrics={metrics} />
             <Typography variant="h5" component="h1">
               Time series
             </Typography>
-            <Typography variant="subtitle2" component="p" ml={1}>
-              Per day from {data[0].date} to {data[data.length - 1].date}
-            </Typography>
+            <Subtitle
+              text="Per day from"
+              start={data[0].date}
+              stop={data[data.length - 1].date}
+              duration={data.length}
+            />
             <Typography
               variant="subtitle1"
               component="p"
@@ -165,7 +172,10 @@ const LineChartRoute = () => {
             </ResponsiveContainer>
 
             <Typography variant="subtitle2" ml={1} mb={5} mt={5}>
-              Every 15 minutes on {currentDay}
+              Every 15 minutes on{" "}
+              <Typography variant="subtitle1" component="span" color="Green">
+                {currentDay}
+              </Typography>
             </Typography>
 
             <ResponsiveContainer width="100%" height={300}>
