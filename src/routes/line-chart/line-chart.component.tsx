@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import Metrics from "../../components/metrics.component";
 
 interface Measurement {
   "0100011D00FF": number;
@@ -21,8 +22,8 @@ interface Measurement {
 
 interface SmartMeterData {
   date: string;
-  aETotalImport: string;
-  aETotalExport: string;
+  aETotalImport: number;
+  aETotalExport: number;
   muid: string;
   measurement: string;
   measurements: Measurement[];
@@ -33,10 +34,44 @@ interface GroupedByDay {
   measurements: Measurement[];
 }
 
+interface Metrics {
+  daysImported: number;
+  daysExported: number;
+  averageExported: string;
+  averageImported: string;
+}
+
 const LineChartRoute = () => {
   const [data, setData] = useState<SmartMeterData[]>([]);
   const [currentDay, setCurrentDay] = useState<string>("");
+  const [metrics, setMetrics] = useState<Metrics>({} as Metrics);
   const navigate = useNavigate();
+
+  const getMetrics = (d: SmartMeterData[]) => {
+    let daysExported = 0;
+    let daysImported = 0;
+    let averageExported = 0;
+    let averageImported = 0;
+
+    d.forEach((m: SmartMeterData) => {
+      if (m.aETotalExport - m.aETotalImport > 0) {
+        daysExported++;
+      } else {
+        daysImported++;
+      }
+
+      averageExported += m.aETotalExport;
+      averageImported += m.aETotalImport;
+      console.log("counting", averageExported, averageImported);
+    });
+
+    return {
+      daysImported,
+      daysExported,
+      averageExported: (averageExported / d.length).toFixed(3),
+      averageImported: (averageImported / d.length).toFixed(3),
+    };
+  };
 
   const filterByDay = (day: string, data: SmartMeterData[]) => {
     return data.find((item: GroupedByDay) => item.date === day)?.measurements;
@@ -54,6 +89,7 @@ const LineChartRoute = () => {
     }
 
     setData(parsedData);
+    setMetrics(getMetrics(parsedData));
   }, []);
 
   useEffect(() => {
@@ -69,6 +105,10 @@ const LineChartRoute = () => {
           <Box padding={3}>
             <Typography variant="h4" component="h1">
               Energy consumption{" "}
+            </Typography>
+            <Metrics metrics={metrics} />
+            <Typography variant="h5" component="h1">
+              Time series
             </Typography>
             <Typography variant="subtitle2" component="p" ml={1}>
               Per day from {data[0].date} to {data[data.length - 1].date}
@@ -123,7 +163,7 @@ const LineChartRoute = () => {
             </ResponsiveContainer>
 
             <Typography variant="subtitle2" ml={1} mb={5} mt={5}>
-              Per hour on {currentDay}
+              Every 15 minutes on {currentDay}
             </Typography>
 
             <ResponsiveContainer width="100%" height={300}>
