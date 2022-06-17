@@ -109,14 +109,14 @@ const LineChartRoute = () => {
                 <Line
                   type="monotone"
                   dataKey="aETotalImport"
-                  name="Total Energy Import"
+                  name="Total Energy Import/Wh"
                   stroke="#8884d8"
                   activeDot={{ r: 8 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="aETotalExport"
-                  name="Total Energy Export"
+                  name="Total Energy Export/Wh"
                   stroke="#82ca9d"
                 />
               </LineChart>
