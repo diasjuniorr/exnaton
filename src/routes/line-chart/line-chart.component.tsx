@@ -140,14 +140,14 @@ const LineChartRoute = () => {
                 <Legend />
                 <Line
                   type="monotone"
-                  name="Total Energy Import"
+                  name="Total Energy Import/Wh"
                   dataKey="0100011D00FF"
                   stroke="#8884d8"
                   activeDot={{ r: 8 }}
                 />
                 <Line
                   type="monotone"
-                  name="Total Energy Export"
+                  name="Total Energy Export/Wh"
                   dataKey="0100021D00FF"
                   stroke="#82ca9d"
                 />
