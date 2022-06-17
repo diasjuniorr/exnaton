@@ -1,46 +1,23 @@
-# Getting Started with Create React App
+# exnaton
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+- [About](#about)
+- [Installing](#getting_started)
+- [Usage](#usage)
 
-In the project directory, you can run:
+## About <a name = "about"></a>
 
-### `npm start`
+This is an application to display the readings for a [Smart Meter](https://en.wikipedia.org/wiki/Smart_meter) and a few metrics about the time series. It is written in React and uses Material-UI for the UI. The [backend](https://github.com/diasjuniorr/exnaton-backend) was writen in Node.js and uses the [Express](https://expressjs.com/) framework and Postgres for the database.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installing <a name = "installing">
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Clone the repo and run `yarn install`
 
-### `npm test`
+To start the application run `yarn start`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You'll need the backend to be running as well. It can be found [here](https://github.com/diasjuniorr/exnaton-backend)
 
-### `npm run build`
+## Usage <a name = "usage"></a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Select the Smart Meter by informing its ID, then select the type of measurement you want to see. (e.g energy). Then select the data range you'd like to analyze and it will generate the metrics and the graph for the time series selected.
