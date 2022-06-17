@@ -42,18 +42,18 @@ const Metrics: React.FC<MetricsProps> = ({ metrics }) => {
       />
       <TextField
         id="outlined-basic"
-        label="Average Exported p/ day (Wh)"
+        label="Average Exported"
         name="meterID"
-        value={averageExported}
+        value={`${averageExported} Wh/day`}
         variant="standard"
         disabled
         margin="dense"
       />
       <TextField
         id="outlined-basic"
-        label="Average Imported p/ day (Wh)"
+        label="Average Imported"
         name="meterID"
-        value={averageImported}
+        value={`${averageImported} Wh/day`}
         variant="standard"
         disabled
         margin="dense"
