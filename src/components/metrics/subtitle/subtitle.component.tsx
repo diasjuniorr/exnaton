@@ -11,12 +11,12 @@ const Subtitle: React.FC<SubtitleProps> = ({ text, start, stop, duration }) => {
     <Typography variant="subtitle2" component="p" ml={1}>
       {text}{" "}
       <Typography
-        variant="subtitle1"
+        variant="subtitle2"
         component="span"
-        color="Green"
+        color="blue"
       >{`${start}`}</Typography>{" "}
       to {""}
-      <Typography variant="subtitle1" component="span" color="Green">
+      <Typography variant="subtitle2" component="span" color="blue">
         {`${stop}`}
       </Typography>{" "}
       ({`${duration}`} days)

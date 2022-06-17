@@ -173,7 +173,7 @@ const LineChartRoute = () => {
 
             <Typography variant="subtitle2" ml={1} mb={5} mt={5}>
               Every 15 minutes on{" "}
-              <Typography variant="subtitle1" component="span" color="Green">
+              <Typography variant="subtitle2" component="span" color="Blue">
                 {currentDay}
               </Typography>
             </Typography>
