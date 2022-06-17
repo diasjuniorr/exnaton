@@ -13,7 +13,7 @@ import {
   YAxis,
 } from "recharts";
 import Metrics from "../../components/metrics/metrics.component";
-import Subtitle from "../../components/metrics/subtitle/subtitle.component";
+import Subtitle from "../../components/subtitle/subtitle.component";
 
 interface Measurement {
   "0100011D00FF": number;
